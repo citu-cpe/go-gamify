@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.2.4",
+    "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "noice-node",
+  "version": "0.0.1",
+  "description": "Noice Node",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "Noice Noise",
+  "license": "ISC"
+}
