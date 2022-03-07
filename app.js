@@ -14,7 +14,12 @@ mongoose
   .connect(dbURI)
   .then((result) => {
     console.log("Connected to db");
-    app.listen(3000);
+    // app.listen(3000);
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, (err) => {
+      if (err) throw err;
+      console.log("%c Server running", "color: green");
+    });
   })
   .catch((err) => {
     console.log(err);
