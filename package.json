@@ -6,13 +6,16 @@
     "mongoose": "^6.2.4",
     "morgan": "^1.10.0"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "name": "noice-node",
   "version": "0.0.1",
   "description": "Noice Node",
-  "main": "app.js",
+  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
