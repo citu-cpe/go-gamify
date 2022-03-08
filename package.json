@@ -4,7 +4,9 @@
     "express": "^4.17.3",
     "lodash": "^4.17.21",
     "mongoose": "^6.2.4",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "express-fileupload": "^1.2.1",
+    "pdf-parse": "^1.1.1"
   },
   "scripts": {
     "start": "node app.js"

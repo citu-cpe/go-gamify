@@ -2,6 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogRoutes");
+const fileUpload = require("express-fileupload");
+const pdfParse = require("pdf-parse");
 
 const { render } = require("ejs");
 
@@ -91,6 +93,20 @@ app.get("/about", (req, res) => {
 });
 
 app.use("/blogs", blogRoutes);
+
+app.use(fileUpload());
+
+app.post("/extract-text", (req, res) => {
+  if (!req.files && !req.files.pdfFile) {
+    res.status(400);
+    res.end();
+  }
+
+  pdfParse(req.files.pdfFile).then((result) => {
+    console.log(result.text);
+    res.send(result.text);
+  });
+});
 
 app.use((req, res) => {
   res.status(404).render("404", { title: "Page not found." });
