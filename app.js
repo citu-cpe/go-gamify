@@ -1,13 +1,14 @@
 const express = require("express");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
-const blogRoutes = require("./routes/blogRoutes");
 const fileUpload = require("express-fileupload");
-const pdfParse = require("pdf-parse");
+const mongoose = require("mongoose");
 
-const { render } = require("ejs");
+const blogRoutes = require("./routes/blogRoutes");
+const gamifyRoutes = require("./routes/gamifyRoutes");
 
 const app = express();
+console.log("App running...");
+console.log("Connecting to database...");
 
 // connect to mongodb
 const dbURI =
@@ -16,7 +17,6 @@ mongoose
   .connect(dbURI)
   .then((result) => {
     console.log("Connected to db");
-    // app.listen(3000);
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, (err) => {
       if (err) throw err;
@@ -29,63 +29,22 @@ mongoose
 
 // register view engine
 app.set("view engine", "ejs");
-// app.set("views", "yourOwnViewsFolder"); if you want to change the "views" defaut folder
 
 // morgan is a middleware that simplifies logging processes
 app.use(morgan("dev"));
 
-// app.get("/add-blog", (req, res) => {
-//   const blog = new Blog({
-//     title: "new blog",
-//     snippet: "about my new blog",
-//     body: "body of my new blog"
-//   });
-
-//   // save the blog in mongodb
-//   blog.save()
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// })
-
-// app.get("/single-block", (req, res) => {
-//   Blog.findById("6223597deb11f6f969fd3715")
-//     .then((result) => {
-//       res.send(result)
-//     }).catch((err) => {
-//       console.log(err);
-//     });
-// })
-
-// app.get("/all-blogs", (req, res) => {
-//   Blog.find()
-//     .then((result) => {
-//       res.send(result)
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     })
-// })
-
 // middleware static files
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-
-// app.use((req, res, next) => {
-//   console.log("New request made.");
-//   console.log("host: " + req.hostname);
-//   console.log("path: " + req.path);
-//   console.log("method: " + req.method);
-//   next(); // specifies to the app to proceed to next code statements
-// });
+app.use(fileUpload());
 
 app.get("/", (req, res) => {
   console.log("redirect");
-  res.redirect("/blogs");
-  // res.render("index", { title: "Home", blogs });
+  res.render("home", { title: "Gamify" });
+});
+
+app.get("/gamify", (req, res) => {
+  res.render("gamify/index", { title: "Gamify" });
 });
 
 app.get("/about", (req, res) => {
@@ -93,20 +52,7 @@ app.get("/about", (req, res) => {
 });
 
 app.use("/blogs", blogRoutes);
-
-app.use(fileUpload());
-
-app.post("/extract-text", (req, res) => {
-  if (!req.files && !req.files.pdfFile) {
-    res.status(400);
-    res.end();
-  }
-
-  pdfParse(req.files.pdfFile).then((result) => {
-    console.log(result.text);
-    res.send(result.text);
-  });
-});
+app.use("/gamify", gamifyRoutes);
 
 app.use((req, res) => {
   res.status(404).render("404", { title: "Page not found." });
