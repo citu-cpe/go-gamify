@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Noice Progressive Web App</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="icons/manifest-icon-192.maskable.png" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="/styles/tailwind.css" />
+    <meta name="theme-color" content="#000000" />
+  </head>
+  <body class="bg-black">
+    <h1>Hello awesomeness!</h1>
+    <a href="./content/content.html">Start #6</a>
+
+    <section id="installBanner" class="banner">
+      <button id="installBtn">Install app</button>
+    </section>
+
+    <section>
+      <input type="file" id="inpFile" />
+      <button type="button" id="btnUpload">Upload</button>
+      <button type="button" id="btnGet">Get</button>
+      <br />
+      <br />
+      <textarea
+        style="width: 300px; height: 150px"
+        id="resultText"
+        placeholder="Your PDF text will appear here..."
+      ></textarea>
+    </section>
+
+    <script>
+      const inpFile = document.getElementById("inpFile");
+      const btnUpload = document.getElementById("btnUpload");
+      const btnGet = document.getElementById("btnGet");
+      const resultText = document.getElementById("resultText");
+
+      btnUpload.addEventListener("click", () => {
+        const formData = new FormData();
+
+        formData.append("pdfFile", inpFile.files[0]);
+
+        console.log("Wew");
+
+        fetch("/extract-text", {
+          method: "post",
+          body: formData,
+        })
+          .then((response) => {
+            return response.text();
+          })
+          .then((extractedText) => {
+            resultText.value = extractedText;
+          });
+      });
+
+      btnGet.addEventListener("click", () => {
+        const formData = new FormData();
+
+        formData.append("pdfFile", inpFile.files[0]);
+
+        console.log("Wew");
+
+        const url = resultText.value;
+        console.log(url);
+
+        fetch(url, {
+          method: "get",
+        })
+          .then((response) => {
+            // console.log(response.text());
+            // console.log(response.json());
+            return response.json();
+          })
+          .then((extractedText) => {
+            resultText.value = extractedText;
+          });
+      });
+    </script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./service-worker.js");
+      }
+    </script>
+
+    <!-- <script src="server.js"></script> -->
+
+    <script>
+      let deferredPrompt;
+      window.addEventListener("beforeinstallprompt", (event) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        // event.preventDefault();
+
+        // Stash the event so it can be triggered later.
+        deferredPrompt = event;
+
+        // Attach the install prompt to a user gesture
+        document
+          .querySelector("#installBtn")
+          .addEventListener("click", (event) => {
+            // Show the prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+              if (choiceResult.outcome === "accepted") {
+                console.log("User accepted the A2HS prompt");
+              } else {
+                console.log("User dismissed the A2HS prompt");
+              }
+              deferredPrompt = null;
+            });
+          });
+
+        // Update UI notify the user they can add to home screen
+        document.querySelector("#installBanner").style.display = "flex";
+      });
+    </script>
+  </body>
+</html>
