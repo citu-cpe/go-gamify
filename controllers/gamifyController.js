@@ -20,7 +20,7 @@ const gamify_create_get = (req, res) => {
   res.render("gamify/create", { title: "Gamify" });
 };
 
-const gamify_create_extract = () => {
+const gamify_create_extract = (req, res) => {
   if (!req.files && !req.files.pdfFile) {
     res.status(400);
     res.end();

@@ -3,12 +3,13 @@
 const dropArea = document.getElementById("dropArea");
 const dropAreaText = document.getElementById("dropAreaText");
 const browseBtn = document.getElementById("browseBtn");
+const gamifyBtn = document.getElementById("gamifyBtn");
 const browseInput = document.getElementById("browseInput");
 const body = document.querySelector("body");
 const contentArea = document.getElementById("contentArea");
+const resultText = document.getElementById("resultText");
 
 body.addEventListener("dragover", (event) => {
-  console.log("Body drag");
   event.preventDefault();
 });
 
@@ -20,39 +21,53 @@ browseBtn.onclick = () => {
 
 browseInput.addEventListener("change", function () {
   file = this.files[0];
-  // showFile();
-  dropArea.classList.add("drag-active");
 });
 
 dropArea.addEventListener("dragover", (event) => {
   event.preventDefault();
-  console.log("Dragging file in dropArea.");
   dropAreaText.textContent = "Release to Upload File";
   dropArea.classList.add("drag-active");
 });
 
 dropArea.addEventListener("dragleave", () => {
-  console.log("File in dropArea has left.");
   dropArea.classList.remove("drag-active");
   dropAreaText.textContent = "Drag and Drop to Upload File";
 });
 
 dropArea.addEventListener("drop", (event) => {
   event.preventDefault();
-  console.log("File in dropArea has been dropped.");
   dropArea.classList.remove("drag-active");
   dropAreaText.textContent = "Release to Upload File";
-  //   dropArea.classList.remove("drag-active");
   file = event.dataTransfer.files[0];
-  console.log(file);
+
+  validateFile();
 });
 
-uploadBtn.addEventListener("click", () => {
+gamifyBtn.addEventListener("click", () => {
+  console.log(file);
+  validateFile();
+});
+
+function validateFile() {
+  let fileType = file.type;
+  console.log(fileType);
+
+  const validFileExtensions = ["application/pdf"];
+
+  if (validFileExtensions.includes(fileType)) {
+    gamifyContents();
+  } else {
+    console.log("!! Invalid file type: " + fileType);
+    alert("File type invalid.");
+  }
+}
+
+function gamifyContents() {
   const formData = new FormData();
 
-  formData.append("pdfFile", inpFile.files[0]);
+  formData.append("pdfFile", file);
 
-  fetch("./extract", {
+  fetch("./create/extract", {
     method: "post",
     body: formData,
   })
@@ -63,28 +78,4 @@ uploadBtn.addEventListener("click", () => {
       console.log(extractedText);
       resultText.value = extractedText;
     });
-});
-
-function showFile() {
-  let fileType = file.type;
-  console.log(fileType);
-
-  const validFileExtensions = ["text/plain", "application/pdf"];
-
-  if (validFileExtensions.includes(fileType)) {
-    console.log("Valid file type: " + fileType);
-    let fileReader = new FileReader();
-    fileReader.onload = () => {
-      let fileURL = fileReader.result;
-      // let imgTag = `<img src="${fileURL}" alt="">`;
-      // cotnen.innerHTML = imgTag;
-      // const lines = fileContent.split(/\r\n|\n/);
-      contentArea.textContent = fileURL.replace("/g", "\n");
-      // contentArea.textContent = fileURL;
-    };
-    fileReader.readAsText(file);
-  } else {
-    console.log("!! Invalid file type: " + fileType);
-    alert("File type invalid.");
-  }
 }
