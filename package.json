@@ -25,6 +25,7 @@
   "scripts": {
     "start": "node app.js",
     "watch": "npx tailwindcss -i ./public/css/style.css -o ./public/css/tailwind.css -w",
+    "minify": "npx tailwindcss -i ./public/css/style.css -o ./public/css/tailwind.css -m",
     "dev": "vite"
   },
   "name": "noice-node",
