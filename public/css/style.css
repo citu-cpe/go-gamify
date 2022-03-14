@@ -1,11 +1,33 @@
 body {
-  @apply font-poppins;
+  @apply bg-gray-100 font-poppins text-gray-900 antialiased;
+}
+
+.section {
+  @apply mx-auto w-full max-w-3xl p-5;
+}
+
+.font-brand {
+}
+
+.btn-cta {
+  @apply rounded-full bg-violet-700 py-5 px-10 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-violet-300
+  focus:bg-violet-500 active:bg-violet-500;
+}
+
+.btn {
+  @apply rounded-full bg-violet-700 py-4 px-10 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-violet-300
+  focus:bg-violet-500 active:bg-violet-500;
+}
+
+.btn-modern {
+  @apply transform-gpu rounded-full bg-violet-600 py-4 px-10 font-semibold text-white
+  shadow-sm duration-300 hover:-translate-y-2 hover:shadow-lg active:bg-blue-700;
 }
 
 /* File Upload */
 
 .drag-active {
-  background-color: #c7d2fe;
+  @apply bg-violet-300;
 }
 
 #dropArea img {
@@ -16,5 +38,21 @@ body {
 }
 
 @tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  p {
+    @apply text-blue-600 underline;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
