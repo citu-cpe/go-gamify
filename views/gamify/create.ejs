@@ -36,7 +36,7 @@
         <button id="gamifyBtn" class="btn">Gamify</button>
       </div>
 
-      <div id="contentArea" class="w-full">
+      <div class="w-full">
         <div>
           <div>
             <h2 class="text-3xl">Content Area</h2>
@@ -47,16 +47,20 @@
               name="content"
               id="resultText"
               cols="20"
-              rows="20"
+              rows="10"
             >
 Content Area</textarea
             >
           </div>
         </div>
       </div>
+
+      <div>
+        <div id="contentArea" contenteditable=""></div>
+      </div>
     </div>
     <div class="mt-10 h-40 py-20"></div>
     <%- include('../partials/footer.ejs') %>
-    <script type="text/javascript" src="/js/fileupload.js"></script>
+    <script type="text/javascript" src="/js/gamify/create.js"></script>
   </body>
 </html>

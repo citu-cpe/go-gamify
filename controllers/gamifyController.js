@@ -1,66 +1,50 @@
 const pdfParse = require("pdf-parse");
-
-// const Blog = require("../models/blog");
+const path = require("path");
 
 const gamify_index = (req, res) => {
   res.render("gamify/index", { title: "Gamify", blogs: result });
 };
 
-// const gamify_details = (req, res) => {
-//   const id = req.params.id;
-//   console.log(id);
-//   Blog.findById(id)
-//     .then((result) => {
-//       res.render("gamify/details", { title: "Blog Details", blog: result });
-//     })
-//     .catch((err) => console.log(err));
-// };
+const gamify_file_post = (req, res) => {
+  if (!req.files) {
+    return res.status(400).send("No files were uploaded.");
+  }
+
+  const file = req.files.file;
+  console.log("Requesting...");
+  const extensionName = path.extname(file.name);
+  const allowedExtension = [".docx"];
+  const targetPath = path.join(__dirname, "..", "files/gamify", file.name);
+  console.log("target path: " + targetPath);
+
+  if (!allowedExtension.includes(extensionName)) {
+    // return res.status(422).send("Invalid file.");
+    return res.send.status(422).send({
+      status: "failed",
+      message: "Invalid file.",
+    });
+  }
+
+  file.mv(targetPath, (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    return res.send({
+      status: "success",
+      message: "File was uploaded successfully.",
+      file: file,
+      path: targetPath,
+    });
+  });
+};
 
 const gamify_create_get = (req, res) => {
   res.render("gamify/create", { title: "Gamify" });
 };
 
-const gamify_create_extract = (req, res) => {
-  if (!req.files && !req.files.pdfFile) {
-    res.status(400);
-    res.end();
-  }
-
-  pdfParse(req.files.pdfFile).then((result) => {
-    console.log(result.text);
-    res.send(result.text);
-  });
-};
-
-// const gamify_create_post = (req, res) => {
-//   const blog = new Blog(req.body);
-//   blog
-//     .save()
-//     .then(() => {
-//       res.redirect("/blogs");
-//     })
-//     .catch((err) => {
-//       res.render("404", { title: "Sorry, something went wrong." });
-//     });
-// };
-
-// const gamify_create_delete = (req, res) => {
-//   const id = req.params.id;
-
-//   Blog.findByIdAndDelete(id)
-//     .then((result) => {
-//       res.json({ redirect: "/blogs" });
-//     })
-//     .catch((err) => {
-//       res.render("404", { title: "Sorry, something went wrong." });
-//     });
-// };
-
 module.exports = {
   gamify_index,
-  // gamify_details,
   gamify_create_get,
-  gamify_create_extract,
-  // gamify_create_post,
-  // gamify_create_delete,
+  gamify_file_post,
 };
