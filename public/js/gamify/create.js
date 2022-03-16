@@ -42,7 +42,7 @@ dropArea.addEventListener("drop", (event) => {
 });
 
 gamifyBtn.addEventListener("click", () => {
-  fetch("/get-html", {
+  fetch("./get-html", {
     method: "get",
   })
     .then((res) => {
