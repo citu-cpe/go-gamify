@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 // mongoose
 //   .connect(dbURI)
 //   .then((result) => {
-//     console.log("Connected to db");
+//     console.log("Connected to database...");
 
 //     app.listen(PORT, (err) => {
 //       if (err) throw err;
