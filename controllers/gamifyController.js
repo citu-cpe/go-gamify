@@ -20,7 +20,7 @@ const gamify_file_post = (req, res) => {
 
   if (!allowedExtension.includes(extensionName)) {
     // return res.status(422).send("Invalid file.");
-    return res.send.status(422).send({
+    return res.status(422).send({
       status: "failed",
       message: "Invalid file.",
     });
@@ -56,34 +56,10 @@ const options = {
 
 const uploadFolder = path.join(__dirname, "..", "files/gamify");
 const uploadFolderContents = fs.readdirSync(uploadFolder);
-// `${__dirname}/files/sample3.docx`;
-// console.log(files);
 
-const gamify_get_html = (req, res) => {
-  console.log("Hello!");
-
-  // files.foreach((file) => {
-  //   console.log(file.name);
-  // });
-
-  // mammoth
-  //   .convertToHtml(
-  //     { path: `${uploadFolder}/2022-2-C1-MOR-CPEH203-02-RCP-COMEROS.docx` },
-  //     options
-  //   )
-  //   .then(function (result) {
-  //     var html = result.value;
-  //     var messages = result.messages;
-  //     console.log(html);
-  //     console.log(messages);
-  //     res.send(JSON.stringify(html));
-  //   })
-  //   .done();
-  parseAllHtml();
-  // console.log("REC");
-  // console.log(htmlContents);
-  // console.log("----");
-  res.send(JSON.stringify(htmlContents));
+const gamify_get_html = async (req, res) => {
+  await parseAllHtml();
+  await res.send(JSON.stringify(htmlContents));
 };
 
 var htmlContents = "";
@@ -97,21 +73,16 @@ const parseHtml = (docx) => {
       htmlContents += html;
       // console.log(html);
       // console.log(messages);
-      return html;
+      // return html;
     });
 };
 
 const parseAllHtml = async () => {
   for (const file of uploadFolderContents) {
     var fileInfo = await parseHtml(file);
-    // console.log(fileInfo);
-    // fileInfo.then((data) => {
-    //   console.log(data.json());
-    // });
-    // console.log(fileInfo);
   }
 
-  console.log("All files have been parsed");
+  console.log("All files have been parsed...");
   // return fileInfo;
 };
 
