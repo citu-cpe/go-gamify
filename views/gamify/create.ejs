@@ -31,17 +31,15 @@
           <button id="browseBtn" class="btn">Browse File</button>
           <input hidden type="file" name="file-upload" id="browseInput" />
         </div>
-      </div>
-      <div>
-        <button id="gamifyBtn" class="btn">Gamify</button>
+        <div class="mt-5 flex items-center justify-center gap-5">
+          <button id="clearBtn" class="btn">Clear Files</button>
+          <button id="gamifyBtn" class="btn-primary">Gamify</button>
+        </div>
       </div>
 
-      <div class="w-full">
+      <div class="h-24 w-full">
         <div>
-          <div>
-            <h2 class="text-3xl">Content Area</h2>
-          </div>
-          <div class="w-full bg-white p-5">
+          <div class="my-5 w-full rounded-lg bg-white p-5">
             <textarea
               class="w-full"
               name="content"
@@ -49,14 +47,19 @@
               cols="20"
               rows="10"
             >
-Content Area</textarea
+Message
+</textarea
             >
           </div>
         </div>
       </div>
 
-      <div>
-        <div id="contentArea" contenteditable=""></div>
+      <div class="h-[32rem] w-96 rounded-xl">
+        <div
+          class="h-full w-full scale-90 overflow-x-hidden rounded-xl bg-gray-200 py-6 px-6"
+          id="contentArea"
+          contenteditable="true"
+        ></div>
       </div>
     </div>
     <div class="mt-10 h-40 py-20"></div>
