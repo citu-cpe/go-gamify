@@ -6,6 +6,7 @@ const browseInput = document.getElementById("browseInput");
 const body = document.querySelector("body");
 const contentArea = document.getElementById("contentArea");
 const resultText = document.getElementById("resultText");
+const clearBtn = document.getElementById("clearBtn");
 
 body.addEventListener("dragover", (event) => {
   event.preventDefault();
@@ -42,7 +43,7 @@ dropArea.addEventListener("drop", (event) => {
 });
 
 gamifyBtn.addEventListener("click", () => {
-  fetch("./get-html", {
+  fetch("./file", {
     method: "get",
   })
     .then((res) => {
@@ -56,6 +57,10 @@ gamifyBtn.addEventListener("click", () => {
     });
 });
 
+clearBtn.addEventListener("click", (event) => {
+  deleteFile();
+});
+
 const appendHTML = (html) => {
   contentArea.innerHTML = html;
 };
@@ -65,7 +70,7 @@ const uploadFile = () => {
 
   formData.append("file", file);
 
-  fetch("./upload", {
+  fetch("./file", {
     method: "post",
     body: formData,
   })
@@ -82,4 +87,19 @@ const uploadFile = () => {
       resultText.value = err.message;
       console.log(err);
     });
+};
+
+const deleteFile = () => {
+  console.log("Deleting file...");
+  fetch("./file", {
+    method: "DELETE",
+  }).then((data) => {
+    console.log("Done");
+  });
+
+  // fetch("./file", {
+  //   method: "delete",
+  // }).then((data) => {
+  //   console.log("Done");
+  // });
 };
