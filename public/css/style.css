@@ -6,22 +6,14 @@ body {
   @apply mx-auto w-full max-w-3xl p-5;
 }
 
-.font-brand {
-}
-
-.btn-cta {
-  @apply rounded-full bg-violet-700 py-5 px-10 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-violet-300
+.btn {
+  @apply rounded-full border-2 border-violet-700 bg-white py-4 px-10 font-semibold text-gray-900 shadow-sm transition-all duration-300 hover:bg-violet-300
   focus:bg-violet-500 active:bg-violet-500;
 }
 
-.btn {
+.btn-primary {
   @apply rounded-full bg-violet-700 py-4 px-10 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-violet-300
   focus:bg-violet-500 active:bg-violet-500;
-}
-
-.btn-modern {
-  @apply transform-gpu rounded-full bg-violet-600 py-4 px-10 font-semibold text-white
-  shadow-sm duration-300 hover:-translate-y-2 hover:shadow-lg active:bg-blue-700;
 }
 
 /* File Upload */
@@ -48,9 +40,6 @@ body {
   }
   h3 {
     @apply text-lg;
-  }
-  p {
-    @apply text-blue-600 underline;
   }
 }
 
