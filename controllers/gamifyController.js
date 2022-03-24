@@ -55,40 +55,55 @@ const options = {
 };
 
 const uploadFolder = path.join(__dirname, "..", "files/gamify");
-const uploadFolderContents = fs.readdirSync(uploadFolder);
 
-const gamify_get_html = async (req, res) => {
+if (!fs.existsSync(uploadFolder)) {
+  fs.mkdirSync(uploadFolder, { recursive: true });
+}
+
+let uploadFolderContents = fs.readdirSync(uploadFolder);
+
+const gamify_file_get = async (req, res) => {
+  uploadFolderContents = fs.readdirSync(uploadFolder);
   await parseAllHtml();
   await res.send(JSON.stringify(htmlContents));
 };
 
 var htmlContents = "";
 
-const parseHtml = (docx) => {
+const parseHtml = (file) => {
   return mammoth
-    .convertToHtml({ path: `${uploadFolder}/${docx}` }, options)
+    .convertToHtml({ path: `${uploadFolder}/${file}` }, options)
     .then(function (result) {
-      var html = result.value;
-      var messages = result.messages;
+      let html = result.value;
+      // var messages = result.messages;
       htmlContents += html;
-      // console.log(html);
-      // console.log(messages);
-      // return html;
     });
 };
 
 const parseAllHtml = async () => {
+  uploadFolderContents = fs.readdirSync(uploadFolder);
+  console.log("Size: " + uploadFolderContents.length);
   for (const file of uploadFolderContents) {
-    var fileInfo = await parseHtml(file);
+    await parseHtml(file);
   }
 
   console.log("All files have been parsed...");
-  // return fileInfo;
+};
+
+const gamify_file_delete = async (req, res) => {
+  uploadFolderContents = fs.readdirSync(uploadFolder);
+  for (const file of uploadFolderContents) {
+    const target = path.join(uploadFolder, file);
+    await fs.unlink(target, () => {
+      console.log("Successfully deleted: " + target);
+    });
+  }
 };
 
 module.exports = {
   gamify_index,
   gamify_create_get,
   gamify_file_post,
-  gamify_get_html,
+  gamify_file_get,
+  gamify_file_delete,
 };
