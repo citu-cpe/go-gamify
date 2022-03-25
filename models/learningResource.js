@@ -15,14 +15,14 @@ const learningResourceSchema = new Schema(
       type: String,
       required: true,
     },
-    isPublic: {
+    active: {
       type: Boolean,
       required: true,
     },
     students: [Number],
     body: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   { timestamps: true }
