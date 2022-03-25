@@ -2,12 +2,29 @@ const path = require("path");
 const mammoth = require("mammoth");
 const fs = require("fs");
 
+const LearningResource = require("../models/learningResource");
+
 const gamify_index = (req, res) => {
-  res.render("gamify/index", { title: "Gamify", blogs: result });
+  console.log("Gamify index...");
+  LearningResource.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      console.log("reslen: " + result.length);
+      res.render("gamify/index", {
+        title: "All Learning Resources",
+        resources: result,
+      });
+    })
+    .catch((err) => {
+      res.render("404", { title: "Sorry, something went wrong." });
+    });
+
+  // res.render("gamify/index", { title: "Gamify", blogs: result });
 };
 
 const gamify_create_get = (req, res) => {
-  res.render("gamify/create", { title: "Gamify" });
+  console.log("Gamify create...");
+  res.render("gamify/create", { title: "Gamify Create" });
 };
 
 const gamify_file_post = (req, res) => {
@@ -100,10 +117,27 @@ const gamify_file_delete = async (req, res) => {
   }
 };
 
+const learning_resource_post = (req, res) => {
+  console.log("Save!");
+  console.log(req.body);
+
+  const learningResource = new LearningResource(req.body);
+  learningResource.active = req.body.active == "on" ? true : false;
+  learningResource
+    .save()
+    .then(() => {
+      res.redirect("/gamify");
+    })
+    .catch((err) => {
+      res.render("404", { title: "Sorry, something went wrong." });
+    });
+};
+
 module.exports = {
   gamify_index,
   gamify_create_get,
   gamify_file_post,
   gamify_file_get,
   gamify_file_delete,
+  learning_resource_post,
 };

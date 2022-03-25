@@ -8,5 +8,6 @@ router.get("/create", gamifyController.gamify_create_get);
 router.get("/file", gamifyController.gamify_file_get);
 router.post("/file", gamifyController.gamify_file_post);
 router.delete("/file", gamifyController.gamify_file_delete);
+router.post("/save", gamifyController.learning_resource_post);
 
 module.exports = router;
