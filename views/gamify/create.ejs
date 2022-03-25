@@ -4,16 +4,16 @@
 
   <body>
     <nav class="mb-10 h-20 border-b"></nav>
-    <div class="section flex flex-col items-center justify-center">
+    <div class="mx-auto flex flex-col items-center justify-center">
       <div
-        class="border-5 border-1 w-full rounded-lg border-black bg-white p-10 shadow-sm"
+        class="section border-5 border-1 w-full rounded-lg border-black bg-white p-10 shadow-sm"
       >
         <h2 class="mb-5 text-center text-3xl">
           GoGamify: Gamification Web Platform
         </h2>
         <div
           id="dropArea"
-          class="mx-auto flex h-48 w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-violet-700 bg-gray-50 p-5 text-center"
+          class="mx-auto flex h-48 w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-violet-700 p-5 text-center"
         >
           <span>
             <svg
@@ -39,9 +39,50 @@
         </div>
       </div>
 
+      <div class="section">
+        <div>
+          <form
+            class="grid grid-flow-row grid-cols-4 items-center gap-4"
+            action="./save"
+            method="POST"
+          >
+            <label for="title">Title</label>
+            <input
+              class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+              type="text"
+              name="title"
+            />
+            <label for="subtitle">Description</label>
+            <input
+              class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+              type="text"
+              name="subtitle"
+            />
+            <label for="owner">Owner</label>
+            <input
+              class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+              type="text"
+              name="owner"
+            />
+            <div class="flex gap-5">
+              <label class="col-span-2" for="active">Show in public</label>
+              <input
+                class="bg-gray-100"
+                type="checkbox"
+                name="active"
+                id="activeCheckBox"
+              />
+            </div>
+            <div class="col-span-4 flex justify-end">
+              <button class="btn px-16">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <div class="h-24 w-full">
         <div>
-          <div class="my-5 w-full rounded-lg bg-white p-5">
+          <div class="section my-5 w-full rounded-lg bg-white p-5">
             <textarea
               class="w-full"
               name="content"
@@ -49,9 +90,8 @@
               cols="20"
               rows="10"
             >
-Message
-</textarea
-            >
+            Message
+            </textarea>
           </div>
         </div>
       </div>
