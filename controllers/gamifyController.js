@@ -6,6 +6,10 @@ const gamify_index = (req, res) => {
   res.render("gamify/index", { title: "Gamify", blogs: result });
 };
 
+const gamify_create_get = (req, res) => {
+  res.render("gamify/create", { title: "Gamify" });
+};
+
 const gamify_file_post = (req, res) => {
   if (!req.files) {
     return res.status(400).send("No files were uploaded.");
@@ -40,8 +44,20 @@ const gamify_file_post = (req, res) => {
   });
 };
 
-const gamify_create_get = (req, res) => {
-  res.render("gamify/create", { title: "Gamify" });
+const uploadFolder = path.join(__dirname, "..", "files/gamify");
+
+if (!fs.existsSync(uploadFolder)) {
+  fs.mkdirSync(uploadFolder, { recursive: true });
+}
+
+let uploadFolderContents = fs.readdirSync(uploadFolder);
+
+var htmlContents = "";
+
+const gamify_file_get = async (req, res) => {
+  uploadFolderContents = fs.readdirSync(uploadFolder);
+  await parseAllHtml();
+  await res.send(JSON.stringify(htmlContents));
 };
 
 const options = {
@@ -53,22 +69,6 @@ const options = {
   styleMap: ["p[style-name='Heading 5'] => h6:fresh"],
   styleMap: ["p[style-name='Heading 6'] => p:fresh"],
 };
-
-const uploadFolder = path.join(__dirname, "..", "files/gamify");
-
-if (!fs.existsSync(uploadFolder)) {
-  fs.mkdirSync(uploadFolder, { recursive: true });
-}
-
-let uploadFolderContents = fs.readdirSync(uploadFolder);
-
-const gamify_file_get = async (req, res) => {
-  uploadFolderContents = fs.readdirSync(uploadFolder);
-  await parseAllHtml();
-  await res.send(JSON.stringify(htmlContents));
-};
-
-var htmlContents = "";
 
 const parseHtml = (file) => {
   return mammoth
