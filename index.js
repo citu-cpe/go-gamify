@@ -11,27 +11,27 @@ console.log("App running...");
 console.log("Connecting to database...");
 const PORT = process.env.PORT || 3000;
 
-// connect to mongodb
-// const dbURI =
-//   "mongodb+srv://node-user-01:NodeUser001-@cluster0.afth4.mongodb.net/noice-node?retryWrites=true&w=majority";
-// mongoose
-//   .connect(dbURI)
-//   .then((result) => {
-//     console.log("Connected to database...");
+// connect to mongoDB
+const dbURI =
+  "mongodb+srv://node-user-01:NodeUser001-@cluster0.afth4.mongodb.net/goGamifyDB?retryWrites=true&w=majority";
+mongoose
+  .connect(dbURI)
+  .then((result) => {
+    console.log("Connected to database...");
 
-//     app.listen(PORT, (err) => {
-//       if (err) throw err;
-//       console.log(`App is listening on port ${PORT}.`);
-//     });
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
+    app.listen(PORT, (err) => {
+      if (err) throw err;
+      console.log(`App is listening on port ${PORT}.`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-app.listen(PORT, (err) => {
-  if (err) throw err;
-  console.log(`App is listening on port ${PORT}.`);
-});
+// app.listen(PORT, (err) => {
+//   if (err) throw err;
+//   console.log(`App is listening on port ${PORT}.`);
+// });
 
 app.set("view engine", "ejs");
 app.use(morgan("dev"));
@@ -44,12 +44,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  console.log("redirect");
   res.render("home", { title: "Gamify" });
-});
-
-app.get("/gamify", (req, res) => {
-  res.render("gamify/index", { title: "Gamify" });
 });
 
 app.get("/about", (req, res) => {
