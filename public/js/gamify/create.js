@@ -78,10 +78,17 @@ const uploadFile = () => {
       if (response.ok) {
         return response.json();
       }
-      throw new Error("Sorry, something went wrong.");
+      return response.json();
     })
     .then((data) => {
-      resultText.value = data.file.name;
+      if (data.status == "success") {
+        resultText.value = data.file.name;
+      } else {
+        alert(data.message);
+        // console.log(data.message);
+        // resultText.value = data.message;
+      }
+      // throw new Error("Sorry, something went wrong.?");
     })
     .catch((err) => {
       resultText.value = err.message;

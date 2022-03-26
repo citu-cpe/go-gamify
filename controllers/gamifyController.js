@@ -3,23 +3,45 @@ const mammoth = require("mammoth");
 const fs = require("fs");
 
 const LearningResource = require("../models/learningResource");
+let isOffline;
+
+// check internet connection
+require("dns").resolve("www.google.com", function (err) {
+  if (err) {
+    console.log("No connection");
+    isOffline = true;
+  } else {
+    console.log("Connected");
+    isOffline = true;
+  }
+});
 
 const gamify_index = (req, res) => {
   console.log("Gamify index...");
-  LearningResource.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      console.log("reslen: " + result.length);
-      res.render("gamify/index", {
-        title: "All Learning Resources",
-        resources: result,
-      });
-    })
-    .catch((err) => {
-      res.render("404", { title: "Sorry, something went wrong." });
-    });
 
-  // res.render("gamify/index", { title: "Gamify", blogs: result });
+  if (isOffline) {
+    console.log("Retrieving learning resources...");
+    res.render("gamify/index", {
+      title: "All Learning Resources",
+      resources: [],
+      offline: true,
+    });
+  } else {
+    console.log("Retrieving learning resources...");
+    LearningResource.find()
+      .sort({ createdAt: -1 })
+      .then((result) => {
+        console.log("reslen: " + result.length);
+        res.render("gamify/index", {
+          title: "All Learning Resources",
+          resources: result,
+          offline: false,
+        });
+      })
+      .catch((err) => {
+        res.render("404", { title: "Sorry, something went wrong." });
+      });
+  }
 };
 
 const gamify_create_get = (req, res) => {
