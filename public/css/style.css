@@ -7,13 +7,13 @@ body {
 }
 
 .btn {
-  @apply mt-2 rounded-xl bg-violet-100 py-2 px-4 font-semibold text-violet-800 shadow-sm ring-offset-4 transition-all duration-150 hover:scale-105
-  hover:bg-violet-200 focus:ring-4 focus:ring-violet-400 active:bg-violet-400 active:text-white;
+  @apply mt-2 rounded-xl bg-violet-100 py-2 px-4 font-semibold text-violet-800 shadow-sm ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-200
+  hover:shadow-lg focus:ring-4 focus:ring-violet-400 active:bg-violet-400 active:text-white;
 }
 
 .btn-primary {
-  @apply mt-2 rounded-xl bg-violet-700 py-2 px-4 font-semibold text-white shadow-sm ring-offset-4 transition-all duration-150 hover:-translate-y-1.5 hover:bg-violet-500
-  focus:ring-4 focus:ring-violet-600 active:bg-violet-600 active:text-white;
+  @apply mt-2 rounded-xl bg-violet-700 py-2 px-4 font-semibold text-white shadow-sm ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-500
+  hover:shadow-lg focus:ring-4 focus:ring-violet-600 active:bg-violet-600 active:text-white;
 }
 
 /* Mammoth JS */
