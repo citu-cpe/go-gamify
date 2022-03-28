@@ -16,7 +16,7 @@ require("dns").resolve("www.google.com", function (err) {
   }
 });
 
-const gamify_index = async (req, res) => {
+const gamify_index = (req, res) => {
   console.log("Gamify index...");
 
   if (isOffline) {
@@ -96,6 +96,7 @@ let uploadFolderContents = fs.readdirSync(uploadFolder);
 var htmlContents = "";
 
 const gamify_file_get = async (req, res) => {
+  htmlContents = "";
   uploadFolderContents = fs.readdirSync(uploadFolder);
   await parseAllHtml();
   await res.send(JSON.stringify(htmlContents));
@@ -125,6 +126,7 @@ const parseAllHtml = async () => {
   uploadFolderContents = fs.readdirSync(uploadFolder);
   console.log("Size: " + uploadFolderContents.length);
   for (const file of uploadFolderContents) {
+    console.log("File to parse: " + file.name);
     await parseHtml(file);
   }
 
