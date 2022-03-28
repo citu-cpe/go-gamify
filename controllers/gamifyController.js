@@ -12,22 +12,24 @@ require("dns").resolve("www.google.com", function (err) {
     isOffline = true;
   } else {
     console.log("Connected");
-    isOffline = true;
+    isOffline = false;
   }
 });
 
-const gamify_index = (req, res) => {
+const gamify_index = async (req, res) => {
   console.log("Gamify index...");
 
   if (isOffline) {
-    console.log("Retrieving learning resources...");
+    console.log("App is currently running offline...");
+    console.log("Cannot retrieve learning resources from DB...");
     res.render("gamify/index", {
       title: "All Learning Resources",
       resources: [],
       offline: true,
     });
   } else {
-    console.log("Retrieving learning resources...");
+    console.log("App is currently running online...");
+    console.log("Retrieving learning resources from DB...");
     LearningResource.find()
       .sort({ createdAt: -1 })
       .then((result) => {
