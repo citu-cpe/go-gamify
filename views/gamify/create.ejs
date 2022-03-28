@@ -3,109 +3,132 @@
   <%- include('../partials/head.ejs') %>
 
   <body>
-    <nav class="mb-10 h-20 border-b"></nav>
-    <div class="mx-auto flex flex-col items-center justify-center">
-      <div
-        class="section border-5 border-1 w-full rounded-lg border-black bg-white p-10 shadow-sm"
-      >
-        <h2 class="mb-5 text-center text-3xl">
-          GoGamify: Gamification Web Platform
-        </h2>
-        <div
-          id="dropArea"
-          class="mx-auto flex h-48 w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-violet-700 p-5 text-center"
-        >
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-16 w-16 transform-gpu animate-bounce rounded-xl fill-violet-700 p-2"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"
-              />
-              <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
-            </svg>
-          </span>
-          <h2 id="dropAreaText">Drag and Drop to Upload File</h2>
-          <p class="text-sm">OR</p>
-          <button id="browseBtn" class="btn">Browse File</button>
-          <input hidden type="file" name="file-upload" id="browseInput" />
-        </div>
-        <div class="mt-5 flex items-center justify-center gap-5">
-          <button id="clearBtn" class="btn">Clear Files</button>
-          <button id="gamifyBtn" class="btn-primary">Gamify</button>
+    <nav class="h-20 border-b"></nav>
+
+    <div class="flex w-full bg-gray-50">
+      <div class="mr-2 h-screen w-1/4 border">
+        <div class="flex flex-col justify-center gap-5 px-10 py-5">
+          <h4 class="text-2xl font-medium text-violet-800">GoGamify</h4>
+          <p>Search</p>
+          <ul class="flex flex-col">
+            <a href="" class="btn"><li>Gamify</li></a>
+            <a href="" class="btn"><li>Classrooms</li></a>
+            <a href="" class="btn"><li>School</li></a>
+            <a href="" class="btn"><li>Resources</li></a>
+            <a href="" class="btn"><li>Tutorials</li></a>
+          </ul>
         </div>
       </div>
 
-      <div class="section">
-        <div>
-          <form
-            class="grid grid-flow-row grid-cols-4 items-center gap-4"
-            action="./save"
-            method="POST"
+      <!-- BODY -->
+      <div class="mx-5 flex w-full flex-col gap-5">
+        <div class="mt-5">
+          <h2 class="text-3xl font-medium">Welcome Teacher SiRaulo!</h2>
+        </div>
+        <div class="section">
+          <!-- <h2 class="mb-5 text-center text-3xl">
+          GoGamify: Gamification Web Platform 
+        </h2> -->
+          <div
+            id="dropArea"
+            class="mx-auto flex h-48 w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-violet-700 p-5 text-center"
           >
-            <label for="title">Title</label>
-            <input
-              class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
-              type="text"
-              name="title"
-            />
-            <label for="subtitle">Description</label>
-            <input
-              class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
-              type="text"
-              name="subtitle"
-            />
-            <label for="owner">Owner</label>
-            <input
-              class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
-              type="text"
-              name="owner"
-            />
-            <div class="flex gap-5">
-              <label class="col-span-2" for="active">Show in public</label>
-              <input
-                class="bg-gray-100"
-                type="checkbox"
-                name="active"
-                id="activeCheckBox"
-              />
-            </div>
-            <div class="col-span-4 flex justify-end">
-              <button class="btn px-16">Save</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="h-24 w-full">
-        <div>
-          <div class="section my-5 w-full rounded-lg bg-white p-5">
-            <textarea
-              class="w-full"
-              name="content"
-              id="resultText"
-              cols="20"
-              rows="10"
-            >
-            Message
-            </textarea>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-16 w-16 transform-gpu animate-bounce rounded-xl fill-violet-700 p-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"
+                />
+                <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
+              </svg>
+            </span>
+            <h2 id="dropAreaText">Drag and Drop to Upload File</h2>
+            <p class="text-sm">OR</p>
+            <button id="browseBtn" class="btn">Browse File</button>
+            <input hidden type="file" name="file-upload" id="browseInput" />
+          </div>
+          <div class="mt-5 flex items-center justify-center gap-5">
+            <button id="clearBtn" class="btn">Clear Queue</button>
+            <button id="gamifyBtn" class="btn btn-primary">Gamify</button>
           </div>
         </div>
-      </div>
 
-      <div class="h-[32rem] w-96 rounded-xl">
-        <div
-          class="h-full w-full scale-90 overflow-x-hidden rounded-xl bg-gray-200 py-6 px-6"
-          id="contentArea"
-          contenteditable="true"
-        ></div>
+        <div class="section">
+          <div>
+            <form
+              class="grid grid-flow-row grid-cols-4 items-center gap-4"
+              action="./save"
+              method="POST"
+            >
+              <label for="title">Title</label>
+              <input
+                class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+                type="text"
+                name="title"
+              />
+              <label for="subtitle">Description</label>
+              <input
+                class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+                type="text"
+                name="subtitle"
+              />
+              <label for="owner">Owner</label>
+              <input
+                class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+                type="text"
+                name="owner"
+              />
+              <div class="flex gap-5">
+                <label class="col-span-2" for="active">Show in public</label>
+                <input
+                  class="bg-gray-100"
+                  type="checkbox"
+                  name="active"
+                  id="activeCheckBox"
+                />
+              </div>
+              <div class="col-span-4 flex justify-end">
+                <button class="btn px-16">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="h-24 w-full">
+          <div>
+            <div class="section full my-5 w-full rounded-lg bg-white p-5">
+              <textarea
+                class="w-full"
+                name="content"
+                id="resultText"
+                cols="20"
+                rows="10"
+              >
+            Message
+            </textarea
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- App Views -->
+        <div class="h-[32rem] w-96 rounded-xl">
+          <div
+            class="h-full w-full scale-90 resize overflow-x-hidden rounded-xl bg-gray-200 py-6 px-6"
+            id="contentArea"
+            contenteditable="true"
+          ></div>
+        </div>
+
+        <!-- Footer -->
+        <%- include('../partials/footer.ejs') %>
       </div>
     </div>
-    <div class="mt-10 h-40 py-20"></div>
-    <%- include('../partials/footer.ejs') %>
     <script type="text/javascript" src="/js/gamify/create.js"></script>
   </body>
 </html>
