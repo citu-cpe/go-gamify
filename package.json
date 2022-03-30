@@ -17,20 +17,18 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "autoprefixer": "^10.4.2",
+    "concurrently": "^7.0.0",
     "postcss": "^8.4.8",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.8",
     "tailwindcss": "^3.0.23",
     "vite": "^2.8.4"
   },
-  "engines": {
-    "node": "14.x"
-  },
   "scripts": {
     "start": "node index.js",
     "watch": "npx tailwindcss -i ./public/css/style.css -o ./public/css/tailwind.css -w",
     "minify": "npx tailwindcss -i ./public/css/style.css -o ./public/css/tailwind.css -m",
-    "dev": "vite"
+    "dev": "concurrently --kill-others \"npm run watch\" \"nodemon app\""
   },
   "name": "noice-node",
   "version": "0.0.1",
