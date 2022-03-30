@@ -7,6 +7,8 @@ const body = document.querySelector("body");
 const contentArea = document.getElementById("contentArea");
 const resultText = document.getElementById("resultText");
 const clearBtn = document.getElementById("clearBtn");
+const uploadList = document.getElementById("uploadList");
+const uploadListRefreshBtn = document.getElementById("uploadListRefreshBtn");
 
 body.addEventListener("dragover", (event) => {
   event.preventDefault();
@@ -61,6 +63,10 @@ clearBtn.addEventListener("click", (event) => {
   deleteFile();
 });
 
+uploadListRefreshBtn.addEventListener("click", (e) => {
+  getUploadedFiles();
+});
+
 const appendHTML = (html) => {
   contentArea.innerHTML = html;
 };
@@ -85,10 +91,7 @@ const uploadFile = () => {
         resultText.value = data.file.name;
       } else {
         alert(data.message);
-        // console.log(data.message);
-        // resultText.value = data.message;
       }
-      // throw new Error("Sorry, something went wrong.?");
     })
     .catch((err) => {
       resultText.value = err.message;
@@ -97,16 +100,49 @@ const uploadFile = () => {
 };
 
 const deleteFile = () => {
-  console.log("Deleting file...");
+  console.log("Deleting files...");
   fetch("./file", {
     method: "DELETE",
-  }).then((data) => {
-    console.log("Done");
-  });
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to delete file.");
+      }
 
-  // fetch("./file", {
-  //   method: "delete",
-  // }).then((data) => {
-  //   console.log("Done");
-  // });
+      console.log("Done");
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+const removeAllChildren = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+};
+
+const getUploadedFiles = () => {
+  console.log("Getting uploaded files...");
+  if (uploadList.children.length > 0) {
+    removeAllChildren(uploadList);
+  }
+
+  fetch("./file-upload-list", {
+    method: "GET",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      data.forEach((file) => {
+        const jsonString = JSON.parse(file);
+        let li = document.createElement("li");
+        li.textContent = jsonString.name;
+        uploadList.appendChild(li);
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };

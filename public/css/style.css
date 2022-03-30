@@ -7,13 +7,27 @@ body {
 }
 
 .btn {
-  @apply mt-2 rounded-xl bg-violet-100 py-2 px-4 font-semibold text-violet-800 shadow-sm ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-200
+  @apply mt-2 rounded-full bg-violet-100 py-2 px-8 font-semibold text-violet-800 shadow-sm ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-200
+  hover:shadow-lg focus:ring-4 focus:ring-violet-400 active:bg-violet-400 active:text-white;
+}
+
+.btn-nav {
+  @apply mt-2 rounded-full  py-2 px-4 font-semibold text-gray-600 ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-100 hover:text-violet-800
+  hover:shadow-sm  focus:bg-violet-400 focus:text-white active:bg-violet-400 active:text-white;
+}
+
+.btn-gamify {
+  @apply mt-2 rounded-full bg-violet-600  py-3 px-8 font-semibold text-white ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-200
   hover:shadow-lg focus:ring-4 focus:ring-violet-400 active:bg-violet-400 active:text-white;
 }
 
 .btn-primary {
-  @apply mt-2 rounded-xl bg-violet-700 py-2 px-4 font-semibold text-white shadow-sm ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-500
+  @apply mt-2 rounded-full bg-violet-700 py-2 px-8 font-semibold text-white shadow-sm ring-offset-4 transition-all duration-150 hover:scale-105 hover:bg-violet-500
   hover:shadow-lg focus:ring-4 focus:ring-violet-600 active:bg-violet-600 active:text-white;
+}
+
+.icon-nav {
+  @apply mr-4 inline-block h-10 w-10 px-2 duration-500 group-hover:rounded-full group-hover:bg-violet-200 group-hover:stroke-violet-600;
 }
 
 /* Mammoth JS */

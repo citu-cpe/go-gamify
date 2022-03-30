@@ -3,22 +3,8 @@
   <%- include('../partials/head.ejs') %>
 
   <body>
-    <nav class="h-20 border-b"></nav>
-
-    <div class="flex w-full bg-gray-50">
-      <div class="mr-2 h-screen w-1/4 border-r bg-white shadow-sm">
-        <div class="flex flex-col justify-center gap-5 px-10 py-5">
-          <h4 class="text-2xl font-medium text-violet-800">GoGamify</h4>
-          <p>Search</p>
-          <ul class="flex flex-col">
-            <a href="" class="btn"><li>Gamify</li></a>
-            <a href="" class="btn"><li>Classrooms</li></a>
-            <a href="" class="btn"><li>School</li></a>
-            <a href="" class="btn"><li>Resources</li></a>
-            <a href="" class="btn"><li>Tutorials</li></a>
-          </ul>
-        </div>
-      </div>
+    <div class="container mx-auto flex w-full bg-gray-50">
+      <%- include('../partials/nav.ejs') %>
 
       <!-- BODY -->
       <div class="mx-5 flex w-full flex-col gap-5">
@@ -59,9 +45,9 @@
 
         <div>
           <div>
-            <ul>
-              <a href="#"><li>File</li></a>
-            </ul>
+            <h3>Learning Modules / Journey</h3>
+            <button class="btn" id="uploadListRefreshBtn">Refresh</button>
+            <ul id="uploadList" class="flex flex-col gap-5 divide-y py-5"></ul>
           </div>
         </div>
 
