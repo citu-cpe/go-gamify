@@ -3,11 +3,11 @@
   <%- include('../partials/head.ejs') %>
 
   <body>
-    <div class="container mx-auto flex w-full bg-gray-50">
+    <div class="mx-auto flex w-full bg-gray-50">
       <%- include('../partials/nav.ejs') %>
 
-      <!-- BODY -->
-      <div class="mx-5 flex w-full flex-col gap-5">
+      <!-- CONTENT -->
+      <div class="mr-5 ml-[22%] flex w-full flex-col gap-5">
         <div class="mt-5">
           <h2 class="text-3xl font-medium">Welcome Teacher SiRaulo!</h2>
         </div>
@@ -43,60 +43,74 @@
           </div>
         </div>
 
-        <div>
-          <div>
-            <h3>Learning Modules / Journey</h3>
-            <button class="btn" id="uploadListRefreshBtn">Refresh</button>
-            <ul id="uploadList" class="flex flex-col gap-5 divide-y py-5"></ul>
-          </div>
-        </div>
-
         <!-- LEARNING RESOURCE INFO -->
-        <div class="section">
+
+        <div class="section flex">
           <div>
-            <form
-              class="grid grid-flow-row grid-cols-4 items-center gap-4"
-              action="./save"
-              method="POST"
-            >
-              <label for="title">Title</label>
-              <input
-                class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
-                type="text"
-                name="title"
-              />
-              <label for="subtitle">Description</label>
-              <input
-                class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
-                type="text"
-                name="subtitle"
-              />
-              <label for="owner">Owner</label>
-              <input
-                class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
-                type="text"
-                name="owner"
-              />
-              <div class="flex gap-5">
-                <label class="col-span-2" for="active">Show in public</label>
+            <div>
+              <div>
+                <h3>Learning Modules / Journey</h3>
+                <button class="btn" id="uploadListRefreshBtn">Refresh</button>
+                <ul
+                  id="uploadList"
+                  class="flex flex-col gap-5 divide-y py-5"
+                ></ul>
+              </div>
+            </div>
+            <div>
+              <form
+                class="grid grid-flow-row grid-cols-4 items-center gap-4"
+                action="./save"
+                method="POST"
+              >
+                <label for="title">Title</label>
                 <input
-                  class="bg-gray-100"
-                  type="checkbox"
-                  name="active"
-                  id="activeCheckBox"
+                  class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+                  type="text"
+                  name="title"
                 />
-              </div>
-              <div class="col-span-4 flex justify-end">
-                <button class="btn px-16">Save</button>
-              </div>
-            </form>
+                <label for="subtitle">Description</label>
+                <input
+                  class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+                  type="text"
+                  name="subtitle"
+                />
+                <label for="owner">Owner</label>
+                <input
+                  class="col-span-3 rounded-lg border bg-gray-50 px-3 py-2"
+                  type="text"
+                  name="owner"
+                />
+                <div class="flex gap-5">
+                  <label class="col-span-2" for="active">Show in public</label>
+                  <input
+                    class="bg-gray-100"
+                    type="checkbox"
+                    name="active"
+                    id="activeCheckBox"
+                  />
+                </div>
+                <div class="col-span-4 flex justify-end">
+                  <button class="btn px-16">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- App Views -->
+          <div class="h-[32rem] w-80 rounded-xl">
+            <div
+              class="h-full w-full scale-90 resize overflow-x-hidden rounded-xl bg-gray-200 py-6 px-6"
+              id="contentArea"
+              contenteditable="true"
+            ></div>
           </div>
         </div>
 
         <!-- Message -->
-        <div class="h-24 w-full">
+        <div class="hidden h-24 w-full">
           <div>
-            <div class="section full my-5 w-full rounded-lg bg-white p-5">
+            <div class="full my-5 w-full rounded-lg bg-white p-5">
               <textarea
                 class="w-full"
                 name="content"
@@ -109,15 +123,6 @@
               >
             </div>
           </div>
-        </div>
-
-        <!-- App Views -->
-        <div class="h-[32rem] w-96 rounded-xl">
-          <div
-            class="h-full w-full scale-90 resize overflow-x-hidden rounded-xl bg-gray-200 py-6 px-6"
-            id="contentArea"
-            contenteditable="true"
-          ></div>
         </div>
 
         <!-- Footer -->
