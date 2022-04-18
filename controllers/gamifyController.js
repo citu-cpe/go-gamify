@@ -115,8 +115,8 @@ const gamify_file_get = async (req, res) => {
 const options = {
   // reserve  H1 conversions (right-sde arrows) for specific page titles for semantic meaning
   styleMap: [
-    "p[style-name='Heading 1'] => h2.special:fresh",
-    "p[style-name='Heading 2'] => h3.btn:fresh",
+    "p[style-name='Heading 1'] => h2:fresh",
+    "p[style-name='Heading 2'] => h3:fresh",
     "p[style-name='Heading 3'] => h4:fresh",
     "p[style-name='Heading 4'] => h5:fresh",
     "p[style-name='Heading 5'] => h6:fresh",
