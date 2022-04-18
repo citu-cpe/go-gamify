@@ -28,17 +28,17 @@ browseInput.addEventListener("change", function () {
 dropArea.addEventListener("dragover", (event) => {
   event.preventDefault();
   dropAreaText.textContent = "Release to Upload File";
-  dropArea.classList.add("drag-active");
+  dropArea.classList.add("drag--active");
 });
 
 dropArea.addEventListener("dragleave", () => {
-  dropArea.classList.remove("drag-active");
+  dropArea.classList.remove("drag--active");
   dropAreaText.textContent = "Drag and Drop to Upload File";
 });
 
 dropArea.addEventListener("drop", (event) => {
   event.preventDefault();
-  dropArea.classList.remove("drag-active");
+  dropArea.classList.remove("drag--active");
   dropAreaText.textContent = "Release to Upload File";
   file = event.dataTransfer.files[0];
   uploadFile();
