@@ -4,7 +4,7 @@ const browseBtn = document.getElementById("browseBtn");
 const gamifyBtn = document.getElementById("gamifyBtn");
 const browseInput = document.getElementById("browseInput");
 const body = document.querySelector("body");
-const contentArea = document.getElementById("contentArea");
+const contentPreview = document.getElementById("contentArea");
 const resultText = document.getElementById("resultText");
 const clearBtn = document.getElementById("clearBtn");
 const uploadList = document.getElementById("uploadList");
@@ -28,17 +28,17 @@ browseInput.addEventListener("change", function () {
 dropArea.addEventListener("dragover", (event) => {
   event.preventDefault();
   dropAreaText.textContent = "Release to Upload File";
-  dropArea.classList.add("drag-active");
+  dropArea.classList.add("drag--active");
 });
 
 dropArea.addEventListener("dragleave", () => {
-  dropArea.classList.remove("drag-active");
+  dropArea.classList.remove("drag--active");
   dropAreaText.textContent = "Drag and Drop to Upload File";
 });
 
 dropArea.addEventListener("drop", (event) => {
   event.preventDefault();
-  dropArea.classList.remove("drag-active");
+  dropArea.classList.remove("drag--active");
   dropAreaText.textContent = "Release to Upload File";
   file = event.dataTransfer.files[0];
   uploadFile();
@@ -53,6 +53,7 @@ gamifyBtn.addEventListener("click", () => {
     })
     .then((data) => {
       appendHTML(data);
+      linkValidIFrames();
     })
     .catch((err) => {
       console.log(err);
@@ -61,14 +62,15 @@ gamifyBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", (event) => {
   deleteFile();
+  getAndShowUploadedFiles();
 });
 
 uploadListRefreshBtn.addEventListener("click", (e) => {
-  getUploadedFiles();
+  getAndShowUploadedFiles();
 });
 
 const appendHTML = (html) => {
-  contentArea.innerHTML = html;
+  contentPreview.innerHTML = html;
 };
 
 const uploadFile = () => {
@@ -89,6 +91,7 @@ const uploadFile = () => {
     .then((data) => {
       if (data.status == "success") {
         resultText.value = data.file.name;
+        getAndShowUploadedFiles();
       } else {
         alert(data.message);
       }
@@ -122,7 +125,7 @@ const removeAllChildren = (parent) => {
   }
 };
 
-const getUploadedFiles = () => {
+const getAndShowUploadedFiles = () => {
   console.log("Getting uploaded files...");
   if (uploadList.children.length > 0) {
     removeAllChildren(uploadList);
@@ -146,3 +149,41 @@ const getUploadedFiles = () => {
       console.log(err.message);
     });
 };
+
+const linkValidIFrames = () => {
+  // all tags in mobile preview
+  const aTagList = contentPreview.querySelectorAll("a");
+  console.log("aTagList", aTagList);
+
+  aTagList.forEach((element) => {
+    try {
+      const domain = new URL(element.textContent);
+      if (domain.hostname == "www.youtube.com") {
+        console.log(domain.hostname);
+        addYoutubeIFrame(element);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+};
+
+const addYoutubeIFrame = (element) => {
+  const ytId = getYoutubeVideoId(element.textContent);
+  const iFrameHTML =
+    '<iframe class="w-full" width="560" height="315" src="https://www.youtube.com/embed/' +
+    ytId +
+    '" frameborder="0" allowfullscreen></iframe>';
+  element.innerHTML += iFrameHTML;
+  console.log("iFrame created successfully.");
+};
+
+// https://stackoverflow.com/questions/21607808/convert-a-youtube-video-url-to-embed-code
+function getYoutubeVideoId(url) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return match && match[2].length === 11 ? match[2] : null;
+}
+
+getAndShowUploadedFiles();
