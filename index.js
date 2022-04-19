@@ -54,6 +54,10 @@ app.get("/", (req, res) => {
   res.render("home", { title: "Gamify" });
 });
 
+app.get("/login", (req, res) => {
+  res.render("login", { title: "Login" });
+});
+
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
