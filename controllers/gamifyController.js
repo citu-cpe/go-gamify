@@ -33,7 +33,7 @@ const gamify_index = (req, res) => {
     LearningResource.find()
       .sort({ createdAt: -1 })
       .then((result) => {
-        console.log("reslen: " + result.length);
+        console.log("Number of Learning Resources: ", result.length);
         res.render("gamify/index", {
           title: "All Learning Resources",
           resources: result,
@@ -159,7 +159,7 @@ const gamify_file_delete = async (req, res) => {
 };
 
 const learning_resource_post = (req, res) => {
-  console.log("Save!");
+  console.log("Saving");
   console.log(req.body);
 
   const learningResource = new LearningResource(req.body);
@@ -168,6 +168,61 @@ const learning_resource_post = (req, res) => {
     .save()
     .then(() => {
       res.redirect("/gamify");
+    })
+    .catch((err) => {
+      res.render("404", { title: "Sorry, something went wrong." });
+    });
+};
+
+const learning_resource_get = (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  LearningResource.findById(id)
+    .then((result) => {
+      res.render("gamify/details", {
+        title: "Learning Resource Details",
+        resource: result,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("404", { title: "Sorry, something went wrong." });
+    });
+};
+
+const learning_resource_put = (req, res) => {
+  // router.put("/students/:id", function (req, res, next) {
+  //   Student.findOneAndUpdate({ _id: req.params.id }, req.body).then(function (
+  //     student
+  //   ) {
+  //     Student.findOne({ _id: req.params.id }).then(function (student) {
+  //       res.send(student);
+  //     });
+  //   });
+  // });
+  // console.log("put!!");
+  // LearningResource.findByIdAndUpdate(req.params.id, {
+  //   title: req.body.title,
+  //   subtitle: req.body.subtitle,
+  //   owner: req.body.owner,
+  //   active: req.body.active,
+  //   body: req.body.body,
+  // })
+  //   .then((result) => {
+  //     res.send("Resource Updated!");
+  //   })
+  //   .catch((err) => {
+  //     console.error(err.message);
+  //     res.send(400).send("Server Error");
+  //   });
+};
+
+const learning_resource_delete = (req, res) => {
+  const id = req.params.id;
+
+  LearningResource.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({ redirect: "/gamify" });
     })
     .catch((err) => {
       res.render("404", { title: "Sorry, something went wrong." });
@@ -207,5 +262,8 @@ module.exports = {
   gamify_file_get,
   gamify_file_delete,
   learning_resource_post,
+  learning_resource_get,
+  learning_resource_put,
+  learning_resource_delete,
   gamify_file_list_get,
 };
