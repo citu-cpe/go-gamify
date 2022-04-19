@@ -47,6 +47,11 @@
   focus:bg-violet-400  focus:text-white focus:ring-transparent active:ring-transparent;
   }
 
+  .link {
+    @apply text-violet-700;
+    @apply transition-all duration-150 hover:text-violet-500;
+  }
+
   .icon--nav {
     @apply mr-4 inline-block h-10 w-10 transform-gpu px-2 duration-500 group-hover:rounded-full group-hover:bg-violet-200 group-hover:stroke-violet-600;
   }
