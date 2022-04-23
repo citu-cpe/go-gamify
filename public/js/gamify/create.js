@@ -9,6 +9,7 @@ const resultText = document.getElementById("resultText");
 const clearBtn = document.getElementById("clearBtn");
 const uploadList = document.getElementById("uploadList");
 const uploadListRefreshBtn = document.getElementById("uploadListRefreshBtn");
+const htmlContent = document.getElementById("htmlContent");
 
 body.addEventListener("dragover", (event) => {
   event.preventDefault();
@@ -71,6 +72,7 @@ uploadListRefreshBtn.addEventListener("click", (e) => {
 
 const appendHTML = (html) => {
   contentPreview.innerHTML = html;
+  htmlContent.textContent = html;
 };
 
 const uploadFile = () => {
